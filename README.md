@@ -92,7 +92,7 @@ OpenShift Pipelines is provided as an add-on on top of OpenShift that can be ins
 Create a project for the sample application that you will be using in this tutorial:
 
 ```bash
-$ oc new-project pipelines-tutorial
+$ oc new-project pipelines-tutorial-live
 ```
 
 OpenShift Pipelines automatically adds and configures a `ServiceAccount` named `pipeline` that has sufficient permissions to build and push an image. This
@@ -348,7 +348,7 @@ $ tkn pipeline start build-and-deploy \
     -w name=shared-workspace,volumeClaimTemplateFile=https://raw.githubusercontent.com/openshift/pipelines-tutorial/master/01_pipeline/03_persistent_volume_claim.yaml \
     -p deployment-name=pipelines-vote-api \
     -p git-url=https://github.com/openshift/pipelines-vote-api.git \
-    -p IMAGE=image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/pipelines-vote-api \
+    -p IMAGE=image-registry.openshift-image-registry.svc:5000/pipelines-tutorial-live/pipelines-vote-api \
     --use-param-defaults
 
 
@@ -366,7 +366,7 @@ $ tkn pipeline start build-and-deploy \
     -w name=shared-workspace,volumeClaimTemplateFile=https://raw.githubusercontent.com/openshift/pipelines-tutorial/master/01_pipeline/03_persistent_volume_claim.yaml \
     -p deployment-name=pipelines-vote-ui \
     -p git-url=https://github.com/openshift/pipelines-vote-ui.git \
-    -p IMAGE=image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/pipelines-vote-ui \
+    -p IMAGE=image-registry.openshift-image-registry.svc:5000/pipelines-tutorial-live/pipelines-vote-ui \
     --use-param-defaults
 
 PipelineRun started: vote-ui-9tb2q
@@ -513,7 +513,7 @@ metadata:
 spec:
   params:
   - name: git-repo-url
-    value: $(body.repository.url)
+    value: $(body.repository.clone_url)
   - name: git-repo-name
     value: $(body.repository.name)
   - name: git-revision
